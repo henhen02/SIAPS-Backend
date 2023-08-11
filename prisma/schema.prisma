@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// pnpx prisma migrate dev
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  nip          String   @unique
+  password     String
+  nama         String
+  alamat       String
+  telp         String
+  roles        Roles[]
+  jabatan      Jabatan  @relation(fields: [jabatanId], references: [id])
+  jabatanId    Int
+  refreshToken String?
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  Tiket        Tiket[]
+}
+
+model Roles {
+  id   Int    @id @default(autoincrement())
+  role String @unique
+  User User[]
+}
+
+model Jabatan {
+  id      Int    @id @default(autoincrement())
+  jabatan String
+  user    User[]
+}
+
+model Status {
+  id     Int     @id @default(autoincrement())
+  status String
+  Tiket  Tiket[]
+}
+
+model Tiket {
+  id          String        @id @default(uuid())
+  instansi    String
+  lokasi      String
+  tanggal     DateTime
+  jenisSampel JenisSampel[]
+  pj          String
+  kontak_pj   String
+  user        User[]
+  status      Status        @relation(fields: [statusId], references: [id])
+  statusId    Int
+  createAt    DateTime      @default(now())
+  updateAt    DateTime      @updatedAt
+}
+
+model JenisSampel {
+  id     Int     @id @default(autoincrement())
+  sampel String
+  tiket  Tiket[]
+}
