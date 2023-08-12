@@ -60,7 +60,8 @@ app.get("/jadwal/:id", async (req, res) => {
             where: {
                 id: id
             }, include: {
-                status: true
+                status: true,
+                user: true
             }
         });
         res.status(200).send(data);
