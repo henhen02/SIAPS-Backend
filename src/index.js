@@ -30,7 +30,13 @@ tiket (manually)
 // get tiket
 app.get("/jadwal", async (req, res) => {
   try {
-    const data = await prisma.tiket.findMany();
+    const data = await prisma.tiket.findMany({
+        include: {
+            user: true,
+            jenisSampel: true,
+            status: true
+        }
+    });
     res.status(200).send(data);
   } catch (error) {
     res.status(500).send({ error: "Internal server error!" });
@@ -58,9 +64,13 @@ app.post("/jadwal", async (req, res) => {
         kontak_pj: value.kontak_pj,
         statusId: value.statusId,
       },
+      select:{
+        id:true
+      }
     });
 
     if (!createdTiket) {
+        console.log("ygyuf")
       return res.status(500).send({ error: "Internal server error!" });
     }
 
@@ -73,16 +83,33 @@ app.post("/jadwal", async (req, res) => {
           data: {
             user: {
               connect: {
-                id: userId,
+                id: userId.id,
               },
-            },
+            }
           },
         });
       });
+      if (value.jenisSampel) {
+        value.jenisSampel.map(async (jenisId, index) => {
+            await prisma.tiket.update({
+                where: {
+                    id: createdTiket.id,
+                },
+                data: {
+                    jenisSampel: {
+                        connect: {
+                            id: jenisId.id
+                        }
+                    }
+                }
+            })
+        })
+      }
     }
 
-    res.status(200).send(data);
+    res.status(200).send({createdTiket});
   } catch (error) {
+    console.log(error)
     res.status(500).send({ error: "Internal server error!" });
   }
 });
@@ -264,7 +291,10 @@ app.post("/jenissampel", async (req, res) => {
   });
   res.status(201).send(data);
 });
-
+app.get("/jenissampel", async (req, res) => {
+    const data = await prisma.jenisSampel.findMany();
+    res.status(200).send(data)
+})
 // roles tables default input
 app.post("/roles", async (req, res) => {
   const data = await prisma.roles.createMany({
