@@ -23,7 +23,7 @@ const getJadwalById = async (req, res) => {
   try {
     const data = await prisma.tiket.findUnique({
       where: {
-        id: id,
+        id: parseInt(id),
       },
       include: {
         status: true,

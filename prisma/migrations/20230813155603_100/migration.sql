@@ -7,25 +7,25 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `_rolestouser` DROP FOREIGN KEY `_RolesToUser_A_fkey`;
+ALTER TABLE `_RolesToUser` DROP FOREIGN KEY `_RolesToUser_A_fkey`;
 
 -- DropForeignKey
-ALTER TABLE `_rolestouser` DROP FOREIGN KEY `_RolesToUser_B_fkey`;
+ALTER TABLE `_RolesToUser` DROP FOREIGN KEY `_RolesToUser_B_fkey`;
 
 -- DropForeignKey
-ALTER TABLE `_tikettouser` DROP FOREIGN KEY `_TiketToUser_A_fkey`;
+ALTER TABLE `_TiketToUser` DROP FOREIGN KEY `_TiketToUser_A_fkey`;
 
 -- DropForeignKey
-ALTER TABLE `_tikettouser` DROP FOREIGN KEY `_TiketToUser_B_fkey`;
+ALTER TABLE `_TiketToUser` DROP FOREIGN KEY `_TiketToUser_B_fkey`;
 
 -- DropTable
-DROP TABLE `_rolestouser`;
+DROP TABLE `_RolesToUser`;
 
 -- DropTable
-DROP TABLE `_tikettouser`;
+DROP TABLE `_TiketToUser`;
 
 -- DropTable
-DROP TABLE `roles`;
+DROP TABLE `Roles`;
 
 -- CreateTable
 CREATE TABLE `Karyawan` (

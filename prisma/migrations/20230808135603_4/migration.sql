@@ -7,13 +7,13 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `_rolestouser` DROP FOREIGN KEY `_RolesToUser_A_fkey`;
+ALTER TABLE `_RolesToUser` DROP FOREIGN KEY `_RolesToUser_A_fkey`;
 
 -- AlterTable
-ALTER TABLE `_rolestouser` MODIFY `A` INTEGER NOT NULL;
+ALTER TABLE `_RolesToUser` MODIFY `A` INTEGER NOT NULL;
 
 -- AlterTable
-ALTER TABLE `roles` DROP PRIMARY KEY,
+ALTER TABLE `Roles` DROP PRIMARY KEY,
     MODIFY `id` INTEGER NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`id`);
 

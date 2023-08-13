@@ -7,7 +7,7 @@
 
 */
 -- AlterTable
-ALTER TABLE `tiket` ADD COLUMN `statusId` INTEGER NOT NULL,
+ALTER TABLE `Tiket` ADD COLUMN `statusId` INTEGER NOT NULL,
     ADD COLUMN `tanggal` DATETIME(3) NOT NULL,
     ADD COLUMN `updateAt` DATETIME(3) NOT NULL;
 
