@@ -11,10 +11,10 @@ const jwtVerify = require("../middlewares/jwtVerify");
 router.get("/", jwtVerify, getAllKaryawan);
 router.get("/:id", jwtVerify, getKaryawanById);
 
-router.post("/", addKaryawan);
+router.post("/", jwtVerify, addKaryawan);
 
-router.delete("/:id", deleteKaryawan);
+router.delete("/:id", jwtVerify, deleteKaryawan);
 
-router.put("/:id", editKaryawan)
+router.put("/:id", jwtVerify, editKaryawan)
 
 module.exports = router;

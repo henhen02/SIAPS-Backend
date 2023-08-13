@@ -9,12 +9,12 @@ const {
 const jwtVerify = require("../middlewares/jwtVerify");
 
 router.get("/", jwtVerify, getAllJadwal);
-router.get("/:id", getJadwalById);
+router.get("/:id", jwtVerify, getJadwalById);
 
-router.post("/", createJadwal);
+router.post("/", jwtVerify, createJadwal);
 
-router.delete("/:id", deleteJadwalById);
+router.delete("/:id", jwtVerify, deleteJadwalById);
 
-router.put("/:id", updateJadwalById);
+router.put("/:id", jwtVerify, updateJadwalById);
 
 module.exports = router;
