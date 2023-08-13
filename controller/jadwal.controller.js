@@ -23,7 +23,7 @@ const getJadwalById = async (req, res) => {
   try {
     const data = await prisma.tiket.findUnique({
       where: {
-        id: parseInt(id),
+        id: id,
       },
       include: {
         status: true,
@@ -32,6 +32,7 @@ const getJadwalById = async (req, res) => {
     });
     res.status(200).send(data);
   } catch (error) {
+    console.log(error);
     res.status(500).send({ error: "Internal server error!" });
   }
 };
@@ -74,7 +75,7 @@ const createJadwal = async (req, res) => {
           data: {
             karyawan: {
               connect: {
-                id: karyawanId.id,
+                id: parseInt(karyawanId.id),
               },
             },
           },
@@ -89,7 +90,7 @@ const createJadwal = async (req, res) => {
             data: {
               jenisSampel: {
                 connect: {
-                  id: jenisId.id,
+                  id: parseInt(jenisId.id),
                 },
               },
             },
