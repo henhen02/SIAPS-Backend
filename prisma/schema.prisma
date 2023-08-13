@@ -19,8 +19,8 @@ model User {
   alamat       String
   telp         String
   roles        Roles[]
-  jabatan      Jabatan  @relation(fields: [jabatanId], references: [id])
-  jabatanId    Int
+  jabatan      Jabatan?  @relation(fields: [jabatanId], references: [id])
+  jabatanId    Int?
   refreshToken String?
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
