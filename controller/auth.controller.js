@@ -160,8 +160,53 @@ const logout = async (req, res) => {
   }
 };
 
+const refreshToken = async (req, res) => {
+  try {
+    const token = req.session.token;
+
+    if (!token) return res.status(401).send({ error: "Token not provided!" });
+
+    jwt.verify(token, process.env.REFRESH_TOKEN, async (err, decoded) => {
+      if (err) return res.status(403).send({ error: "Forbidden!" });
+
+      const user = await prisma.user.findUnique({
+        where: {
+          id: decoded.id,
+        },
+        select: {
+          id: true,
+          nip: true,
+          nama: true,
+          alamat: true,
+          telp: true,
+          jabatanId: true,
+          refreshToken: true,
+        },
+      });
+
+      if (!user) return res.status(404).send({ error: "User not found!" });
+
+      if (!user.refreshToken)
+        return res.status(404).send({ error: "Forbidden!" });
+
+      const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN, {
+        expiresIn: "15m",
+      });
+
+      user.refreshToken = undefined;
+      user.accessToken = accessToken;
+
+      res.status(200).send(user);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   register,
   login,
   logout,
+  refreshToken,
 };
