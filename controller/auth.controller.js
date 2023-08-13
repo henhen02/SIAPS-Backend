@@ -28,7 +28,7 @@ const register = async (req, res) => {
         nama: nama,
         alamat: alamat,
         telp: telp,
-        jabatanId: 2
+        jabatanId: 2,
       },
     });
 

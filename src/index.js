@@ -12,7 +12,7 @@ const userRoutes = require("../router/user.routes");
 const jadwalRoutes = require("../router/jadwal.routes");
 const publicRoutes = require("../router/public.routes");
 const authRoutes = require("../router/auth.routes");
-const karyawanRoutes = require("../router/karyawan.routes")
+const karyawanRoutes = require("../router/karyawan.routes");
 
 app.use(express.json());
 app.use(
@@ -29,9 +29,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     maxAge: 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "none",
-    secure: true
-  }, )
+  })
 );
 
 app.use("/auth", authRoutes);
