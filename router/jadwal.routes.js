@@ -6,8 +6,9 @@ const {
   deleteJadwalById,
   updateJadwalById,
 } = require("../controller/jadwal.controller");
+const jwtVerify = require("../middlewares/jwtVerify");
 
-router.get("/", getAllJadwal);
+router.get("/", jwtVerify, getAllJadwal);
 router.get("/:id", getJadwalById);
 
 router.post("/", createJadwal);
