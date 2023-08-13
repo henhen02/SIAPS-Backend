@@ -3,21 +3,19 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getAllJadwal = async (req, res) => {
-  async (req, res) => {
-    try {
-      const data = await prisma.tiket.findMany({
-        include: {
-          user: true,
-          jenisSampel: true,
-          status: true,
-        },
-      });
-      res.status(200).send(data);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({ error: "Internal server error!" });
-    }
-  };
+  try {
+    const data = await prisma.tiket.findMany({
+      include: {
+        user: true,
+        jenisSampel: true,
+        status: true,
+      },
+    });
+    res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Internal server error!" });
+  }
 };
 
 const getJadwalById = async (req, res) => {
