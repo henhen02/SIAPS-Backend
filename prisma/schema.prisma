@@ -18,25 +18,18 @@ model User {
   nama         String
   alamat       String
   telp         String
-  roles        Roles[]
-  jabatan      Jabatan?  @relation(fields: [jabatanId], references: [id])
+  jabatan      Jabatan? @relation(fields: [jabatanId], references: [id])
   jabatanId    Int?
   refreshToken String?
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
-  Tiket        Tiket[]
-}
-
-model Roles {
-  id   Int    @id @default(autoincrement())
-  role String @unique
-  User User[]
 }
 
 model Jabatan {
-  id      Int    @id @default(autoincrement())
-  jabatan String
-  user    User[]
+  id       Int        @id @default(autoincrement())
+  jabatan  String
+  user     User[]
+  Karyawan Karyawan[]
 }
 
 model Status {
@@ -53,11 +46,22 @@ model Tiket {
   jenisSampel JenisSampel[]
   pj          String
   kontak_pj   String
-  user        User[]
+  karyawan    Karyawan[]
   status      Status        @relation(fields: [statusId], references: [id])
   statusId    Int
   createAt    DateTime      @default(now())
   updateAt    DateTime      @updatedAt
+}
+
+model Karyawan {
+  id        Int      @id @default(autoincrement())
+  nip       String   @unique
+  nama      String
+  alamat    String
+  telp      String
+  jabatan   Jabatan? @relation(fields: [jabatanId], references: [id])
+  jabatanId Int?
+  tiket     Tiket[]
 }
 
 model JenisSampel {

@@ -28,42 +28,37 @@ const register = async (req, res) => {
         nama: nama,
         alamat: alamat,
         telp: telp,
-        // jabatanId: 2,
-        // roles: {
-        //   connect: {
-        //     role: "engineer",
-        //   },
-        // },
+        jabatanId: 2
       },
     });
 
     if (!user) return res.status(500).send({ error: "Internal server error" });
 
-    if (req.body.roles) {
-      const roles = await prisma.role.findMany({
-        where: {
-          role: {
-            in: req.body.roles,
-          },
-        },
-      });
+    // if (req.body.roles) {
+    //   const roles = await prisma.role.findMany({
+    //     where: {
+    //       role: {
+    //         in: req.body.roles,
+    //       },
+    //     },
+    //   });
 
-      if (!roles)
-        return res.status(500).send({ error: "Internal server error" });
+    //   if (!roles)
+    //     return res.status(500).send({ error: "Internal server error" });
 
-      await prisma.user.update({
-        where: {
-          id: user.id,
-        },
-        data: {
-          roles: {
-            connect: roles.map((role) => ({
-              id: role.id,
-            })),
-          },
-        },
-      });
-    }
+    //   await prisma.user.update({
+    //     where: {
+    //       id: user.id,
+    //     },
+    //     data: {
+    //       roles: {
+    //         connect: roles.map((role) => ({
+    //           id: role.id,
+    //         })),
+    //       },
+    //     },
+    //   });
+    // }
 
     res.status(201).send({ message: "Berhasil mendaftar!" });
   } catch (error) {

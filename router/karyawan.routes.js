@@ -1,21 +1,20 @@
 const router = require("express").Router();
 const {
-  getAllKaryawan,
-  getKaryawanById,
-  createKaryawan,
-  updatePasswordKaryawan,
-  updateKaryawan,
-  deleteKaryawan,
+    addKaryawan, 
+    getAllKaryawan,
+    editKaryawan,
+    getKaryawanById,
+    deleteKaryawan
 } = require("../controller/karyawan.controller");
+const jwtVerify = require("../middlewares/jwtVerify");
 
-router.get("/", getAllKaryawan);
-router.get("/:id", getKaryawanById);
+router.get("/", jwtVerify, getAllKaryawan);
+router.get("/:id", jwtVerify, getKaryawanById);
 
-router.post("/", createKaryawan);
-
-router.put("/:id/password", updatePasswordKaryawan);
-router.put("/:id", updateKaryawan);
+router.post("/", addKaryawan);
 
 router.delete("/:id", deleteKaryawan);
+
+router.put("/:id", editKaryawan)
 
 module.exports = router;

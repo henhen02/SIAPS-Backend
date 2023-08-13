@@ -4,89 +4,87 @@ const prisma = new PrismaClient();
 
 const getAllKaryawan = async (req, res) => {
   try {
-    const data = await prisma.user.findMany({
+    const data = await prisma.karyawan.findMany({
       include: {
-        jabatan: true,
-      },
+        jabatan: true
+      }
     });
     res.status(200).send(data);
   } catch (error) {
-    res.status(500).send({ error: "Internal server error!" });
+    res.status(500).send({error: "Internal server error!"})
   }
-};
+}
 
 const getKaryawanById = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id
   try {
-    const data = await prisma.user.findUnique({
-      where: { id: id },
-      include: {
-        jabatan: true,
+    const data = await prisma.karyawan.findUnique({
+      where: {
+        id: id
       },
+      include: {
+        jabatan: true
+      }
+    });
+    res.status(200).send(data)
+  } catch (error) { 
+    res.status(500).send({error: "Internal server error!"})
+  }
+}
+
+const addKaryawan = async (req, res) => {
+  try {
+    const { nip, nama, telp, alamat } = req.body;
+    const data = await prisma.karyawan.create({
+      data: {
+        nip: nip,
+        nama: nama,
+        telp: telp,
+        alamat: alamat
+      }
     });
     res.status(200).send(data);
   } catch (error) {
-    res.status(500).send({ error: "Internal server error!" });
+    res.status(500).send({error: "Internal sever error!"});
   }
-};
+}
 
-const createKaryawan = async (req, res) => {
-  try {
-    const data = await prisma.user.create({ data: req.body });
-    res.send(data);
-  } catch (error) {
-    res.status(500).send({ error: "Internal server error!" });
-  }
-};
-
-const updateKaryawan = async (req, res) => {
+const editKaryawan = async (req, res) => {
   const id = req.params.id;
   const value = req.body;
   try {
-    const data = await prisma.user.update({
-      where: { id: id },
-      data: {
-        ...value,
-        updateAt: new Date(),
+    const data = await prisma.karyawan.update({
+      where: {
+        id: id
       },
-    });
-    res.status(200).send(data);
+      data: {
+        ...value
+      }
+    })
+    res.status(200).send(data)
   } catch (error) {
-    res.status(500).send({ error: "Internal server error!" });
+    res.status(500).send({error: "Internal server error!"});
   }
-};
-
-const updatePasswordKaryawan = async (req, res) => {
-  const id = req.params.id;
-  const newPassword = req.body.password;
-  try {
-    const data = await prisma.user.update({
-      where: { id: id },
-      data: { password: newPassword },
-    });
-    res.status(200).send(data);
-  } catch (error) {
-    res.status(500).send({ error: "Internal server error!" });
-  }
-};
+}
 
 const deleteKaryawan = async (req, res) => {
   const id = req.params.id;
   try {
-    const data = await prisma.user.delete({
-      where: { id: id },
+    const data = await prisma.karyawan.delete({
+      where: {
+        id: id
+      }
     });
-    res.status(200).send(data);
+    res.status(200).send(data)
   } catch (error) {
-    res.status(500).send({ error: "Internal server error!" });
+    res.status(500).send({error: "Internal server error!"})
   }
-};
+}
 
 module.exports = {
   getAllKaryawan,
   getKaryawanById,
-  createKaryawan,
-  updatePasswordKaryawan,
-  updateKaryawan,
+  addKaryawan,
+  editKaryawan,
   deleteKaryawan,
 };

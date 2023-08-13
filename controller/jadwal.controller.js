@@ -6,7 +6,7 @@ const getAllJadwal = async (req, res) => {
   try {
     const data = await prisma.tiket.findMany({
       include: {
-        user: true,
+        karyawan: true,
         jenisSampel: true,
         status: true,
       },
@@ -27,7 +27,7 @@ const getJadwalById = async (req, res) => {
       },
       include: {
         status: true,
-        user: true,
+        karyawan: true,
       },
     });
     res.status(200).send(data);
@@ -62,7 +62,6 @@ const createJadwal = async (req, res) => {
     });
 
     if (!createdTiket) {
-      console.log("ygyuf");
       return res.status(500).send({ error: "Internal server error!" });
     }
 
@@ -73,9 +72,9 @@ const createJadwal = async (req, res) => {
             id: createdTiket.id,
           },
           data: {
-            user: {
+            karyawan: {
               connect: {
-                id: userId.id,
+                id: karyawanId.id,
               },
             },
           },

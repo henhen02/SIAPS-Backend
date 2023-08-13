@@ -1,16 +1,22 @@
-const {
-  register,
-  login,
-  logout,
-  refreshToken,
-} = require("../controller/auth.controller");
-
 const router = require("express").Router();
+const {
+  getAllUser,
+  getUserById,
+  createUser,
+  updatePasswordUser,
+  updateUser,
+  deleteUser,
+} = require("../controller/user.controller");
+const jwtVerify = require("../middlewares/jwtVerify");
 
-router.post("/register", register);
-router.post("/login", login);
+router.get("/", jwtVerify, getAllUser);
+router.get("/:id", getUserById);
 
-router.get("/logout", logout);
-router.get("/refresh", refreshToken);
+router.post("/", createUser);
+
+router.put("/:id/password", updatePasswordUser);
+router.put("/:id", updateUser);
+
+router.delete("/:id", deleteUser);
 
 module.exports = router;

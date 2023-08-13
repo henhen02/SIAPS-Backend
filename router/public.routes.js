@@ -4,6 +4,22 @@ const { PrismaClient } = require("@prisma/client");
 // declare
 const prisma = new PrismaClient();
 
+router.post("/karyawan", async (req, res) => {
+  const { nip, nama, alamat, telp } = req.body;
+  if (!nip || !nama || !alamat || !telp)
+    return res.status(400).send({ error: "Masukan semua data!" });
+  const data = await prisma.karyawan.create({
+    data: {
+      nip: nip,
+      nama: nama,
+      alamat: alamat,
+      telp: telp,
+      jabatanId: 3,
+    },
+  });
+  res.status(200).send(data);
+})
+
 router.post("/jabatan", async (req, res) => {
   const data = await prisma.jabatan.createMany({
     data: [
@@ -11,10 +27,10 @@ router.post("/jabatan", async (req, res) => {
         jabatan: "Kepala cabang",
       },
       {
-        jabatan: "Engineer",
+        jabatan: "Administrasi",
       },
       {
-        jabatan: "Administrasi",
+        jabatan: "Engineer",
       },
     ],
   });
@@ -26,19 +42,28 @@ router.post("/jenissampel", async (req, res) => {
   const data = await prisma.jenisSampel.createMany({
     data: [
       {
-        sampel: "Air limbah",
+        sampel: "Air Laut",
       },
       {
-        sampel: "Air sungai",
+        sampel: "Air Limbah",
       },
       {
-        sampel: "Udara",
+        sampel: "Air Sungai",
       },
       {
-        sampel: "Udara ambient",
+        sampel: "Air Bersih",
       },
       {
-        sampel: "Oksigen",
+        sampel: "Udara Ambient",
+      },
+      {
+        sampel: "Kebisingan",
+      },
+      {
+        sampel: "Getaran",
+      },
+      {
+        sampel: "Kebauan",
       },
     ],
   });
@@ -48,33 +73,19 @@ router.get("/jenissampel", async (req, res) => {
   const data = await prisma.jenisSampel.findMany();
   res.status(200).send(data);
 });
-// roles tables default input
-router.post("/roles", async (req, res) => {
-  const data = await prisma.roles.createMany({
-    data: [
-      {
-        role: "Engineer",
-      },
-      {
-        role: "Admin",
-      },
-    ],
-  });
-  res.status(201).send(data);
-});
 
 // status table default input
 router.post("/status", async (req, res) => {
   const data = await prisma.status.createMany({
     data: [
       {
-        status: "diproses",
+        status: "Di Proses",
       },
       {
-        status: "selesai",
+        status: "Selesai",
       },
       {
-        status: "terlambat selesai",
+        status: "Terlambat Selesai",
       },
     ],
   });
