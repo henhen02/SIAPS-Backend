@@ -65,8 +65,8 @@ const createJadwal = async (req, res) => {
       return res.status(500).send({ error: "Internal server error!" });
     }
 
-    if (value.user) {
-      value.user.map(async (userId, index) => {
+    if (value.karyawan) {
+      value.karyawan.map(async (karyawanId, index) => {
         await prisma.tiket.update({
           where: {
             id: createdTiket.id,

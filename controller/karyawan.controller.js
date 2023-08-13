@@ -20,7 +20,7 @@ const getKaryawanById = async (req, res) => {
   try {
     const data = await prisma.karyawan.findUnique({
       where: {
-        id: id
+        id: parseInt(id)
       },
       include: {
         jabatan: true
@@ -28,6 +28,7 @@ const getKaryawanById = async (req, res) => {
     });
     res.status(200).send(data)
   } catch (error) { 
+    console.log(error)
     res.status(500).send({error: "Internal server error!"})
   }
 }
@@ -55,14 +56,17 @@ const editKaryawan = async (req, res) => {
   try {
     const data = await prisma.karyawan.update({
       where: {
-        id: id
+        id: parseInt(id)
       },
       data: {
-        ...value
+        nama: value.nama,
+        alamat: value.alamat,
+        telp: value.telp,
       }
     })
     res.status(200).send(data)
   } catch (error) {
+    console.log(error)
     res.status(500).send({error: "Internal server error!"});
   }
 }
