@@ -23,9 +23,6 @@ app.use("/karyawan", karyawanRoutes);
 app.use("/jadwal", jadwalRoutes);
 app.use("/public", publicRoutes);
 
-/* ========== Hit tiket table ========== */
-// get tiket
-
 app.listen(PORT, () => {
   console.log("App listen to port " + PORT);
 });
