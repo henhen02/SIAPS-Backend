@@ -15,6 +15,6 @@ router.post("/", jwtVerify, createJadwal);
 
 router.delete("/:id", jwtVerify, deleteJadwalById);
 
-router.put("/:id", jwtVerify, updateJadwalById);
+router.put("/:id", updateJadwalById);
 
 module.exports = router;

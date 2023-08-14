@@ -35,17 +35,19 @@ const getKaryawanById = async (req, res) => {
 
 const addKaryawan = async (req, res) => {
   try {
-    const { nip, nama, telp, alamat } = req.body;
+    const { nip, nama, telp, alamat, jabatanId } = req.body;
     const data = await prisma.karyawan.create({
       data: {
         nip: nip,
         nama: nama,
         telp: telp,
-        alamat: alamat
+        alamat: alamat,
+        jabatanId: parseInt(jabatanId)
       }
     });
     res.status(200).send(data);
   } catch (error) {
+    console.log(error)
     res.status(500).send({error: "Internal sever error!"});
   }
 }

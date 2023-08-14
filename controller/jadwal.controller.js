@@ -28,6 +28,7 @@ const getJadwalById = async (req, res) => {
       include: {
         status: true,
         karyawan: true,
+        jenisSampel: true
       },
     });
     res.status(200).send(data);
@@ -122,11 +123,10 @@ const deleteJadwalById = async (req, res) => {
 
 const updateJadwalById = async (req, res) => {
   const id = req.params.id;
-  const newStatus = req.body.statusId;
   try {
     const data = await prisma.tiket.update({
       where: { id: id },
-      data: { statusId: newStatus },
+      data: { statusId: 2 },
     });
     res.status(201).send(data);
   } catch (error) {

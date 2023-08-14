@@ -20,6 +20,8 @@ router.post("/karyawan", async (req, res) => {
   res.status(200).send(data);
 })
 
+// Jabatan
+
 router.post("/jabatan", async (req, res) => {
   const data = await prisma.jabatan.createMany({
     data: [
@@ -36,6 +38,11 @@ router.post("/jabatan", async (req, res) => {
   });
   res.status(201).send(data);
 });
+
+router.get("/jabatan", async (req, res) => {
+  const data = await prisma.jabatan.findMany()
+  res.status(200).send(data);
+})
 
 // jenissample tables default input
 router.post("/jenissampel", async (req, res) => {
