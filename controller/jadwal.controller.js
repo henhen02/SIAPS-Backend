@@ -73,31 +73,32 @@ const createJadwal = async (req, res) => {
           where: {
             id: createdTiket.id,
           },
+          data: 
+              {
+              karyawan: {
+                connect: {
+                  id: parseInt(karyawanId.id),
+                },
+              },
+            },
+        });
+      });
+    }
+    if (value.jenisSampel) {
+      value.jenisSampel.map(async (jenisId, index) => {
+        await prisma.tiket.update({
+          where: {
+            id: createdTiket.id,
+          },
           data: {
-            karyawan: {
+            jenisSampel: {
               connect: {
-                id: parseInt(karyawanId.id),
+                id: parseInt(jenisId.id),
               },
             },
           },
         });
       });
-      if (value.jenisSampel) {
-        value.jenisSampel.map(async (jenisId, index) => {
-          await prisma.tiket.update({
-            where: {
-              id: createdTiket.id,
-            },
-            data: {
-              jenisSampel: {
-                connect: {
-                  id: parseInt(jenisId.id),
-                },
-              },
-            },
-          });
-        });
-      }
     }
 
     res.status(200).send({ createdTiket });
