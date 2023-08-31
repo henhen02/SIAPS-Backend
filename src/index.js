@@ -30,6 +30,7 @@ app.use(
   })
 );
 
+// Routes
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/jadwal", jadwalRoutes);
