@@ -83,22 +83,22 @@ const createJadwal = async (req, res) => {
             },
         });
       });
-    }
-    if (value.jenisSampel) {
-      value.jenisSampel.map(async (jenisId, index) => {
-        await prisma.tiket.update({
-          where: {
-            id: createdTiket.id,
-          },
-          data: {
-            jenisSampel: {
-              connect: {
-                id: parseInt(jenisId.id),
+      if (value.jenisSampel) {
+        value.jenisSampel.map(async (jenisId, index) => {
+          await prisma.tiket.update({
+            where: {
+              id: createdTiket.id,
+            },
+            data: {
+              jenisSampel: {
+                connect: {
+                  id: parseInt(jenisId.id),
+                },
               },
             },
-          },
+          });
         });
-      });
+      }
     }
 
     res.status(200).send({ createdTiket });
