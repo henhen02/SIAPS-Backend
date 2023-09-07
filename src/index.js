@@ -3,8 +3,6 @@ const dotenv = require("dotenv");
 const cookieSession = require("cookie-session");
 dotenv.config();
 
-// declare
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 const cors = require("cors");
@@ -32,6 +30,7 @@ app.use(
   })
 );
 
+// Routes
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/jadwal", jadwalRoutes);
