@@ -13,7 +13,7 @@ const getAllJadwal = async (req, res) => {
     });
     res.status(200).send(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error!" });
   }
 };
@@ -33,7 +33,7 @@ const getJadwalById = async (req, res) => {
     });
     res.status(200).send(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error!" });
   }
 };
@@ -103,7 +103,7 @@ const createJadwal = async (req, res) => {
 
     res.status(200).send({ createdTiket });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error!" });
   }
 };

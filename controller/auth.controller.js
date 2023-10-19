@@ -60,9 +60,9 @@ const register = async (req, res) => {
     //   });
     // }
 
-    res.status(201).send({ message: "Berhasil mendaftar!" });
+    res.status(201).send(user);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -115,7 +115,7 @@ const login = async (req, res) => {
 
     res.status(200).send(user);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -150,7 +150,7 @@ const logout = async (req, res) => {
     req.session = null;
     res.status(200).send({ message: "Logout berhasil!" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -194,7 +194,7 @@ const refreshToken = async (req, res) => {
       res.status(200).send(user);
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ error: "Internal server error" });
   }
 };

@@ -28,7 +28,7 @@ const getKaryawanById = async (req, res) => {
     });
     res.status(200).send(data)
   } catch (error) { 
-    console.log(error)
+    // console.log(error)
     res.status(500).send({error: "Internal server error!"})
   }
 }
@@ -47,7 +47,7 @@ const addKaryawan = async (req, res) => {
     });
     res.status(200).send(data);
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).send({error: "Internal sever error!"});
   }
 }
@@ -68,7 +68,7 @@ const editKaryawan = async (req, res) => {
     })
     res.status(200).send(data)
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).send({error: "Internal server error!"});
   }
 }
@@ -78,11 +78,12 @@ const deleteKaryawan = async (req, res) => {
   try {
     const data = await prisma.karyawan.delete({
       where: {
-        id: id
+        id: parseInt(id)
       }
     });
     res.status(200).send(data)
   } catch (error) {
+    // console.log(error)
     res.status(500).send({error: "Internal server error!"})
   }
 }
